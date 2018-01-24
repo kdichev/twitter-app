@@ -10,18 +10,46 @@ import thunkMiddleware from 'redux-thunk'
 
 
 const initialState = {
-  tweets: [1,2,3]
+  reddits: [],
+  searchQuery: '',
+  loading: false,
+  limit: 100
 }
 
-const twitter = (state = initialState, action) => {
+const reddit = (state = initialState, action) => {
   switch (action.type) {
+    case 'CHANGE_SEARCH_QUERY':
+      return {
+        ...state,
+        searchQuery: action.value,
+        reddits: []
+      }
+    case 'FETCHING_REDDITS':
+      return {
+        ...state,
+        loading: true
+      }
+    case 'FETCH_MORE':
+      return {
+        ...state,
+        limit: state.limit + 5
+      }
+    case 'RECIEVE_REDDITS':
+      return {
+        ...state,
+        reddits: [
+          ...state.reddits,
+          ...action.newReddits
+        ],
+        loading: false
+      }
     default:
       return state
   }
 }
 
 const rootReducer = combineReducers({
-  twitter
+  reddit
 })
 
 const configureStore = () => {
