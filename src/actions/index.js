@@ -14,7 +14,7 @@ export const changeSearchQuery = value => {
   }
 }
 
-export const fetchTweets = () => {
+export const fetchReddits = () => {
   return async (dispatch, getState) => {
     dispatch({ type: 'FETCHING_REDDITS' })
     const { reddit: { searchQuery, limit} } = getState()
@@ -22,13 +22,6 @@ export const fetchTweets = () => {
       subreddit(name: "${searchQuery}"){
         newListings(limit: ${limit}) {
           title
-          comments {
-            body
-            author { 
-              username
-              commentKarma
-            }
-          }
         }
       }
     }`
@@ -40,7 +33,6 @@ export const fetchTweets = () => {
 
 export const fetchMoreReddits = () => {
   return async (dispatch, getState) => {
-    dispatch({ type: 'FETCH_MORE' })
-    console.log(getState().reddit.limit)
+    return dispatch({ type: 'FETCH_MORE' })
   }
 }

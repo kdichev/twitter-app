@@ -6,7 +6,7 @@ import Button from './components/Button'
 
 import { connect } from 'react-redux'
 
-import { changeSearchQuery, fetchTweets, fetchMoreReddits } from './actions'
+import { changeSearchQuery, fetchReddits, fetchMoreReddits } from './actions'
 
 class App extends Component {
   componentDidMount() {
@@ -19,11 +19,11 @@ class App extends Component {
 
   handleOnScroll = () => {
     // http://stackoverflow.com/questions/9439725/javascript-how-to-detect-if-browser-window-is-scrolled-to-bottom
-    var scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-    var scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
-    var clientHeight = document.documentElement.clientHeight || window.innerHeight;
-    var scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-    if(scrolledToBottom) {
+    const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+    const scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
+    const clientHeight = document.documentElement.clientHeight || window.innerHeight;
+    const scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
+    if(scrolledToBottom && !this.props.isFetching) {
       this.props.handleFetchMore()
       this.props.onButtonClick()
     }
@@ -54,7 +54,7 @@ const mapStateToProps = ({ reddit: { reddits, loading, limit } }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onButtonClick: () => dispatch(fetchTweets()),
+    onButtonClick: () => dispatch(fetchReddits()),
     onInputChange: e => dispatch(changeSearchQuery(e.target.value)),
     handleFetchMore: () => dispatch(fetchMoreReddits())
   }
