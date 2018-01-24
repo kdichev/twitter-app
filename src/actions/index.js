@@ -16,6 +16,7 @@ export const fetchReddits = () => {
   return async (dispatch, getState) => {
     dispatch({ type: 'FETCHING_REDDITS' })
     const { reddit: { searchQuery, limit} } = getState()
+    dispatch({ type: 'ADD_SELECTED_SUBREDDIT', subreddit: searchQuery })
     const query = `{
       subreddit(name: "${searchQuery}"){
         newListings(

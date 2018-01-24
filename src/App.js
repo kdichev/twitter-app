@@ -28,12 +28,13 @@ class App extends Component {
   }
 
   render() {
-    const { isFetching, reddits, onInputChange, handleOnFetchReddits } = this.props
+    const { isFetching, reddits, onInputChange, handleOnFetchReddits, searchQuery, selectedSubreddits } = this.props
     return (
       <div>
         <AppBar>
-          <Field onChange={onInputChange} placeholder='Subredit...'/>
-          <Button disabled={isFetching} onClick={handleOnFetchReddits}>Search</Button>
+          <Field onChange={onInputChange} placeholder='Subredit...' value={searchQuery} />
+          <Button disabled={isFetching || (searchQuery.length < 1)} onClick={handleOnFetchReddits}>Search</Button>
+          {selectedSubreddits.map(reddit => reddit)}
         </AppBar>
         {reddits.map((reddit, index) => (
           <RedditCard>
@@ -49,10 +50,12 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ reddit: { reddits, isFetching } }) => {
+const mapStateToProps = ({ reddit: { reddits, isFetching, searchQuery, selectedSubreddits } }) => {
   return {
     reddits,
-    isFetching
+    isFetching,
+    searchQuery,
+    selectedSubreddits
   }
 }
 

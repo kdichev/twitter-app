@@ -11,6 +11,7 @@ import thunkMiddleware from 'redux-thunk'
 
 const initialState = {
   reddits: [],
+  selectedSubreddits: [],
   searchQuery: '',
   isFetching: false,
   limit: 100
@@ -21,28 +22,30 @@ const reddit = (state = initialState, action) => {
     case 'CHANGE_SEARCH_QUERY':
       return {
         ...state,
-        searchQuery: action.value,
-        reddits: []
+        searchQuery: action.value
       }
     case 'FETCHING_REDDITS':
       return {
         ...state,
         isFetching: true
       }
-    case 'FETCH_MORE':
-      return {
-        ...state,
-        limit: state.limit + 5
-      }
     case 'RECIEVE_REDDITS':
-      const newState = [
-        ...state.reddits,
-        ...action.newReddits
-      ]
       return {
         ...state,
-        reddits: newState,
+        reddits: [
+          ...state.reddits,
+          ...action.newReddits
+        ],
         isFetching: false
+      }
+    case 'ADD_SELECTED_SUBREDDIT':
+      return {
+        ...state,
+        searchQuery: '',
+        selectedSubreddits: [
+          ...state.selectedSubreddits,
+          ...action.subreddit
+        ]
       }
     default:
       return state
