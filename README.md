@@ -7,3 +7,4 @@ npm install && npm start
 
 
 Todo: result concatiation
+Edit: не call-вам правилно limit в api call-a мога да специфайна 'FullnameId of an item in the listing to use as the anchor point of the slice.'

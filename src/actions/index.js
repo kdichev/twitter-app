@@ -5,8 +5,6 @@ let schema = new GraphQLSchema({
   query: Reddit.QueryObjectType
 });
 
-
-
 export const changeSearchQuery = value => {
   return {
     type: 'CHANGE_SEARCH_QUERY',
