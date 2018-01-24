@@ -18,8 +18,11 @@ export const fetchReddits = () => {
     const { reddit: { searchQuery, limit} } = getState()
     const query = `{
       subreddit(name: "${searchQuery}"){
-        newListings(limit: ${limit}) {
+        newListings(
+          limit: ${limit}
+        ) {
           title
+          fullnameId
         }
       }
     }`
@@ -28,9 +31,22 @@ export const fetchReddits = () => {
   }
 }
 
-
-export const fetchMoreReddits = () => {
+export const fetchMoreReddits = (lastId) => {
   return async (dispatch, getState) => {
-    return dispatch({ type: 'FETCH_MORE' })
+    dispatch({ type: 'FETCHING_REDDITS' })
+    const { reddit: { searchQuery, limit } } = getState()
+    const query = `{
+      subreddit(name: "${searchQuery}"){
+        newListings(
+          limit: ${limit}
+          after: "${lastId}"
+        ) {
+          title
+          fullnameId
+        }
+      }
+    }`
+    const { data: { subreddit: { newListings } } } = await graphql(schema, query)
+    dispatch({ type: 'RECIEVE_REDDITS', newReddits: newListings })
   }
 }

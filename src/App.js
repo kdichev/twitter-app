@@ -24,18 +24,17 @@ class App extends Component {
     const clientHeight = document.documentElement.clientHeight || window.innerHeight;
     const scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
     if(scrolledToBottom && !this.props.isFetching) {
-      this.props.handleFetchMore()
-      this.props.onButtonClick()
+      this.props.handleOnFetchMoreReddits(this.props.reddits[this.props.reddits.length - 1].fullnameId)
     }
   }
 
   render() {
-    const { isFetching, reddits, onInputChange, onButtonClick } = this.props
+    const { isFetching, reddits, onInputChange, handleOnFetchReddits } = this.props
     return (
       <div>
         <AppBar>
           <Field onChange={onInputChange} placeholder='Subredit...'/>
-          <Button disabled={isFetching} onClick={onButtonClick}>Search</Button>
+          <Button disabled={isFetching} onClick={handleOnFetchReddits}>Search</Button>
         </AppBar>
         {reddits.map((tweet, index) => <div>{index} {tweet.title}</div>)}
         {isFetching && 'Loading...'}
@@ -54,9 +53,9 @@ const mapStateToProps = ({ reddit: { reddits, loading, limit } }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onButtonClick: () => dispatch(fetchReddits()),
+    handleOnFetchReddits: () => dispatch(fetchReddits()),
     onInputChange: e => dispatch(changeSearchQuery(e.target.value)),
-    handleFetchMore: () => dispatch(fetchMoreReddits())
+    handleOnFetchMoreReddits: (id) => dispatch(fetchMoreReddits(id))
   }
 }
 
