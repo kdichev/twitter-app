@@ -20,7 +20,7 @@ export const fetchReddits = () => {
     const query = `{
       subreddit(name: "${searchQuery}"){
         newListings(
-          limit: ${limit}
+          limit: 100
         ) {
           title
           fullnameId
@@ -49,7 +49,7 @@ export const fetchMoreReddits = (lastId) => {
     const query = `{
       subreddit(name: "${searchQuery}"){
         newListings(
-          limit: ${limit}
+          limit: 100
           after: "${lastId}"
         ) {
           title

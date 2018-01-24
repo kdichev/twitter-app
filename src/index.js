@@ -41,7 +41,6 @@ const reddit = (state = initialState, action) => {
     case 'ADD_SELECTED_SUBREDDIT':
       return {
         ...state,
-        searchQuery: '',
         selectedSubreddits: [
           ...state.selectedSubreddits,
           ...action.subreddit
