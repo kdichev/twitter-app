@@ -33,7 +33,7 @@ class App extends Component {
       <div>
         <AppBar>
           <Field onChange={onInputChange} placeholder='Subredit...' value={searchQuery} />
-          <Button disabled={isFetching || (searchQuery.length < 1)} onClick={handleOnFetchReddits}>Search</Button>
+          <Button disabled={isFetching} onClick={handleOnFetchReddits}>Search</Button>
           {selectedSubreddits.map(reddit => reddit)}
         </AppBar>
         {reddits.map((reddit, index) => (
