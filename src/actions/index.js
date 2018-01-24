@@ -23,6 +23,16 @@ export const fetchReddits = () => {
         ) {
           title
           fullnameId
+          url
+          score
+          numComments
+          author {
+            fullnameId
+            username
+          }
+          comments {
+            body
+          }
         }
       }
     }`
@@ -43,6 +53,16 @@ export const fetchMoreReddits = (lastId) => {
         ) {
           title
           fullnameId
+          url
+          score
+          numComments
+          author {
+            fullnameId
+            username
+          }
+          comments {
+            body
+          }
         }
       }
     }`

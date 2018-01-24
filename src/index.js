@@ -12,7 +12,7 @@ import thunkMiddleware from 'redux-thunk'
 const initialState = {
   reddits: [],
   searchQuery: '',
-  loading: false,
+  isFetching: false,
   limit: 100
 }
 
@@ -27,7 +27,7 @@ const reddit = (state = initialState, action) => {
     case 'FETCHING_REDDITS':
       return {
         ...state,
-        loading: true
+        isFetching: true
       }
     case 'FETCH_MORE':
       return {
@@ -42,7 +42,7 @@ const reddit = (state = initialState, action) => {
       return {
         ...state,
         reddits: newState,
-        loading: false
+        isFetching: false
       }
     default:
       return state
