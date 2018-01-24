@@ -37,8 +37,13 @@ export const fetchReddits = () => {
         }
       }
     }`
-    const { data: { subreddit: { newListings }}} = await graphql(schema, query)
-    dispatch({ type: 'RECIEVE_REDDITS', newReddits: newListings })
+    try {
+      const { data: { subreddit: { newListings }}} = await graphql(schema, query)
+      dispatch({ type: 'RECIEVE_REDDITS', newReddits: newListings })
+    } catch (e) {
+      console.log(e)
+      dispatch({ type: 'ERROR_RECIEVING_REDDITS' })
+    }
   }
 }
 
@@ -67,7 +72,12 @@ export const fetchMoreReddits = (lastId) => {
         }
       }
     }`
-    const { data: { subreddit: { newListings } } } = await graphql(schema, query)
-    dispatch({ type: 'RECIEVE_REDDITS', newReddits: newListings })
+    try {
+      const { data: { subreddit: { newListings } } } = await graphql(schema, query)
+      dispatch({ type: 'RECIEVE_REDDITS', newReddits: newListings })
+    } catch(e) {
+      console.log(e)
+      dispatch({ type: 'ERROR_RECIEVING_REDDITS' })
+    }
   }
 }

@@ -14,7 +14,7 @@ const initialState = {
   selectedSubreddits: [],
   searchQuery: '',
   isFetching: false,
-  limit: 100
+  error: false
 }
 
 const reddit = (state = initialState, action) => {
@@ -45,6 +45,11 @@ const reddit = (state = initialState, action) => {
           ...state.selectedSubreddits,
           ...action.subreddit
         ]
+      }
+    case 'ERROR_RECIEVING_REDDITS':
+      return {
+        ...state,
+        error: true
       }
     default:
       return state

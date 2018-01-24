@@ -28,7 +28,7 @@ class App extends Component {
   }
 
   render() {
-    const { isFetching, reddits, onInputChange, handleOnFetchReddits, searchQuery, selectedSubreddits } = this.props
+    const { isFetching, reddits, onInputChange, handleOnFetchReddits, searchQuery, selectedSubreddits, error } = this.props
     return (
       <div>
         <AppBar>
@@ -44,18 +44,20 @@ class App extends Component {
             <div>{reddit.numComments} comments</div>
           </RedditCard>
         ))}
-        {isFetching && 'Loading...'}
+        {(isFetching && !error) && 'Loading...'}
+        {error && 'No subreddit found. Try again!'}
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ reddit: { reddits, isFetching, searchQuery, selectedSubreddits } }) => {
+const mapStateToProps = ({ reddit: { reddits, isFetching, searchQuery, selectedSubreddits, error } }) => {
   return {
     reddits,
     isFetching,
     searchQuery,
-    selectedSubreddits
+    selectedSubreddits,
+    error
   }
 }
 
