@@ -35,11 +35,10 @@ const reddit = (state = initialState, action) => {
         limit: state.limit + 5
       }
     case 'RECIEVE_REDDITS':
-    const newState = [
-      ...state.reddits,
-      ...state.newReddits
-    ]
-    console.log(newState)
+      const newState = [
+        ...state.reddits,
+        ...action.newReddits
+      ]
       return {
         ...state,
         reddits: newState,
