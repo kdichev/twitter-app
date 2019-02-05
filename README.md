@@ -1,3 +1,6 @@
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/kdichev/twitter-app.svg)](https://greenkeeper.io/)
+
 How to start:
 npm install && npm start
 
